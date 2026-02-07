@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suporte e Ajuda — Legacy Platform</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <style>
+    :root {
+      --bg-dark: #020617;
+      --text-white: #ffffff;
+      --text-gray: rgba(255, 255, 255, 0.7);
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.15);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --neon-cyan: #00ffff;
+      --neon-pink: #ff007a;
+      --neon-purple: #a855f7;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', 'Inter', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-white);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Background */
+    .background-blobs {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.5;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .blob-1 {
+      width: 600px; height: 600px;
+      background: var(--neon-pink);
+      top: 10%; left: 10%;
+    }
+
+    .blob-2 {
+      width: 500px; height: 500px;
+      background: var(--primary);
+      bottom: 10%; right: 10%;
+      animation-delay: -3s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(40px, -40px); }
+    }
+
+    /* Header */
+    header {
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      background: rgba(2, 6, 23, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      cursor: pointer;
+    }
+
+    .cube-header-wrapper {
+      width: 50px;
+      height: 50px;
+      perspective: 800px;
+    }
+
+    .cube-header {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCube 12s infinite linear;
+    }
+
+    @keyframes rotateCube {
+      from { transform: rotateX(0deg) rotateY(0deg); }
+      to { transform: rotateX(360deg) rotateY(360deg); }
+    }
+
+    .cube-face {
+      position: absolute;
+      width: 50px; height: 50px;
+      background: rgba(59, 130, 246, 0.3);
+      border: 1px solid rgba(59, 130, 246, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: var(--neon-cyan);
+    }
+
+    .face-front  { transform: translateZ(25px); }
+    .face-back   { transform: rotateY(180deg) translateZ(25px); }
+    .face-right  { transform: rotateY(90deg) translateZ(25px); }
+    .face-left   { transform: rotateY(-90deg) translateZ(25px); }
+    .face-top    { transform: rotateX(90deg) translateZ(25px); }
+    .face-bottom { transform: rotateX(-90deg) translateZ(25px); }
+
+    .brand-text strong {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-size: 24px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .brand-text span {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--primary);
+      display: block;
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 35px;
+    }
+
+    .nav-link {
+      color: var(--text-gray);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      position: relative;
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--neon-cyan));
+      transform: translateX(-50%);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #fff;
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .nav-link:hover::before,
+    .nav-link.active::before {
+      width: 80%;
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    .mobile-menu-toggle span {
+      width: 30px;
+      height: 3px;
+      background: var(--text-white);
+      border-radius: 3px;
+    }
+
+    /* Main */
+    main {
+      padding-top: 140px;
+      min-height: 100vh;
+      position: relative;
+      padding-bottom: 100px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 30px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Hero */
+    .support-hero {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .support-hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff, var(--primary), var(--neon-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+    }
+
+    .support-hero p {
+      font-size: 1.2rem;
+      color: var(--text-gray);
+      max-width: 900px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Support Options Grid */
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 80px;
+    }
+
+    .support-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 25px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: var(--glass-shadow);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .support-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--neon-cyan));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .support-card:hover {
+      transform: translateY(-12px);
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 25px 70px rgba(59, 130, 246, 0.4);
+    }
+
+    .support-card:hover::before {
+      opacity: 1;
+    }
+
+    .support-icon {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 25px;
+      border-radius: 50%;
+      border: 3px solid rgba(59, 130, 246, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 45px;
+      background: rgba(59, 130, 246, 0.1);
+      transition: all 0.4s ease;
+    }
+
+    .support-card:hover .support-icon {
+      transform: scale(1.15) rotate(360deg);
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+    }
+
+    .support-icon.whatsapp {
+      border-color: #25d366;
+      background: rgba(37, 211, 102, 0.1);
+    }
+
+    .support-icon.whatsapp i {
+      color: #25d366;
+    }
+
+    .support-icon.email {
+      border-color: var(--warning);
+      background: rgba(245, 158, 11, 0.1);
+    }
+
+    .support-icon.email i {
+      color: var(--warning);
+    }
+
+    .support-icon.docs {
+      border-color: var(--neon-purple);
+      background: rgba(168, 85, 247, 0.1);
+    }
+
+    .support-icon.docs i {
+      color: var(--neon-purple);
+    }
+
+    .support-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .support-description {
+      color: var(--text-gray);
+      margin-bottom: 25px;
+      line-height: 1.7;
+    }
+
+    .support-info {
+      color: var(--primary);
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+    }
+
+    .btn-support {
+      padding: 16px 40px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .btn-support.whatsapp {
+      background: linear-gradient(135deg, #25d366, #128c7e);
+    }
+
+    .btn-support.email {
+      background: linear-gradient(135deg, var(--warning), #d97706);
+    }
+
+    .btn-support.docs {
+      background: linear-gradient(135deg, var(--neon-purple), #7c3aed);
+    }
+
+    .btn-support:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(59, 130, 246, 0.5);
+    }
+
+    /* Hours Section */
+    .hours-section {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 25px;
+      padding: 50px;
+      margin-bottom: 80px;
+      text-align: center;
+    }
+
+    .hours-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: #fff;
+    }
+
+    .hours-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hours-item {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 25px;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hours-item h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .hours-item p {
+      color: var(--text-gray);
+      font-size: 1rem;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      margin-bottom: 80px;
+    }
+
+    .faq-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 50px;
+      background: linear-gradient(135deg, #fff, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .faq-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 15px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .faq-question {
+      padding: 25px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      color: #fff;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+
+    .faq-question:hover {
+      color: var(--primary);
+    }
+
+    .faq-question i {
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      padding: 0 25px;
+      color: var(--text-gray);
+      line-height: 1.7;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+      padding: 0 25px 25px;
+    }
+
+    /* Contact Form */
+    .contact-form-section {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(168, 85, 247, 0.15));
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 25px;
+      padding: 50px;
+      margin-bottom: 80px;
+    }
+
+    .form-title {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .form-subtitle {
+      text-align: center;
+      color: var(--text-gray);
+      margin-bottom: 40px;
+    }
+
+    .contact-form {
+      max-width: 700px;
+      margin: 0 auto;
+      display: grid;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-label {
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .form-input,
+    .form-textarea,
+    .form-select {
+      padding: 15px 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-size: 15px;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .form-textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-submit {
+      padding: 18px;
+      background: linear-gradient(135deg, var(--success), #059669);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
+    }
+
+    /* Footer */
+    footer {
+      background: #2d3748;
+      color: var(--text-gray);
+      padding: 50px 30px 30px;
+      margin-top: 100px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-section h3 {
+      color: #fff;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+
+    .footer-section p,
+    .footer-section a {
+      color: var(--text-gray);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: block;
+      transition: color 0.3s ease;
+    }
+
+    .footer-section a:hover {
+      color: var(--primary);
+    }
+
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .contact-item i {
+      color: var(--primary);
+      font-size: 1.2rem;
+      width: 25px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 30px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom strong {
+      color: var(--primary);
+    }
+
+    /* WhatsApp Float */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 999;
+    }
+
+    .btn-whatsapp {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 35px;
+      box-shadow: 0 10px 40px rgba(37, 211, 102, 0.4);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .btn-whatsapp:hover {
+      transform: scale(1.1);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 25px;
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-close:hover {
+      background: var(--danger);
+      transform: rotate(90deg);
+    }
+
+    .modal-icon {
+      font-size: 4rem;
+      color: var(--success);
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .modal-text {
+      color: var(--text-gray);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .btn-modal {
+      padding: 14px 30px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-modal:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .header-nav {
+        position: fixed;
+        top: 90px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 90px);
+        background: rgba(2, 6, 23, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 30px;
+        gap: 20px;
+        transition: left 0.4s ease;
+      }
+
+      .header-nav.active {
+        left: 0;
+      }
+
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
+      header {
+        padding: 0 20px;
+      }
+
+      .support-hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .support-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hours-section {
+        padding: 30px 20px;
+      }
+
+      .contact-form-section {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background -->
+<div class="background-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="brand" onclick="window.location.href='index.html'">
+    <div class="cube-header-wrapper">
+      <div class="cube-header">
+        <div class="cube-face face-front"><i class="fas fa-chart-line"></i></div>
+        <div class="cube-face face-back"><i class="fas fa-users"></i></div>
+        <div class="cube-face face-right"><i class="fas fa-project-diagram"></i></div>
+        <div class="cube-face face-left"><i class="fas fa-wallet"></i></div>
+        <div class="cube-face face-top"><i class="fas fa-cube"></i></div>
+        <div class="cube-face face-bottom"><i class="fas fa-database"></i></div>
+      </div>
+    </div>
+    <div class="brand-text">
+      <strong>Legacy Platform</strong>
+      <span>ENTERPRISE <i class="fas fa-cloud"></i> CLOUD</span>
+    </div>
+  </div>
+
+  <nav class="header-nav" id="headerNav">
+    <a href="index.html" class="nav-link">
+      <i class="fas fa-home"></i> Início
+    </a>
+    <a href="planos.html" class="nav-link">
+      <i class="fas fa-layer-group"></i> Planos
+    </a>
+    <a href="sistemas.html" class="nav-link">
+      <i class="fas fa-th-large"></i> Sistemas
+    </a>
+    <a href="suporte.html" class="nav-link active">
+      <i class="fas fa-headset"></i> Suporte
+    </a>
+    <a href="https://legacysistema.github.io/legacy-user" class="nav-link" target="_blank">
+      <i class="fas fa-user-tie"></i> Área do Cliente
+    </a>
+  </nav>
+  
+  <div class="mobile-menu-toggle" id="mobileMenuToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</header>
+
+<!-- Main -->
+<main>
+  <div class="container">
+    
+    <!-- Hero -->
+    <section class="support-hero">
+      <h1>Central de Suporte e Ajuda</h1>
+      <p>
+        Estamos aqui para ajudar! Escolha a melhor forma de contato ou consulte nossas perguntas frequentes. 
+        Sua satisfação é nossa prioridade.
+      </p>
+    </section>
+
+    <!-- Support Options -->
+    <div class="support-grid">
+      
+      <div class="support-card">
+        <div class="support-icon whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </div>
+        <h3 class="support-title">WhatsApp</h3>
+        <p class="support-description">
+          Atendimento rápido e direto pelo WhatsApp. Tire suas dúvidas em tempo real.
+        </p>
+        <div class="support-info">(22) 99249-7662</div>
+        <a href="https://wa.me/5522992497662?text=Olá!%20Preciso%20de%20suporte%20com%20a%20Legacy%20Platform." 
+           target="_blank" 
+           class="btn-support whatsapp">
+          <i class="fab fa-whatsapp"></i> Abrir WhatsApp
+        </a>
+      </div>
+
+      <div class="support-card">
+        <div class="support-icon email">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <h3 class="support-title">E-mail</h3>
+        <p class="support-description">
+          Envie sua dúvida por e-mail e receba uma resposta detalhada em até 24 horas.
+        </p>
+        <div class="support-info">legacysistemacrm@gmail.com</div>
+        <a href="mailto:legacysistemacrm@gmail.com?subject=Suporte Legacy Platform" 
+           class="btn-support email">
+          <i class="fas fa-envelope"></i> Enviar E-mail
+        </a>
+      </div>
+
+      <div class="support-card">
+        <div class="support-icon docs">
+          <i class="fas fa-book"></i>
+        </div>
+        <h3 class="support-title">Base de Conhecimento</h3>
+        <p class="support-description">
+          Acesse tutoriais, guias e documentação completa dos nossos sistemas.
+        </p>
+        <div class="support-info">Em breve disponível</div>
+        <button class="btn-support docs" onclick="alert('Base de conhecimento em desenvolvimento. Entre em contato pelo WhatsApp!')">
+          <i class="fas fa-book"></i> Acessar Docs
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Hours -->
+    <section class="hours-section">
+      <h2 class="hours-title">
+        <i class="fas fa-clock"></i> Horário de Atendimento
+      </h2>
+      <div class="hours-grid">
+        <div class="hours-item">
+          <h3>Segunda a Sexta</h3>
+          <p>09:00 às 18:00</p>
+        </div>
+        <div class="hours-item">
+          <h3>Sábado</h3>
+          <p>09:00 às 13:00</p>
+        </div>
+        <div class="hours-item">
+          <h3>Domingo e Feriados</h3>
+          <p>Fechado</p>
+        </div>
+      </div>
+      <p style="margin-top: 25px; color: var(--text-gray); font-size: 0.95rem;">
+        <i class="fas fa-info-circle"></i> 
+        Mensagens recebidas fora do horário serão respondidas no próximo dia útil
+      </p>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="contact-form-section">
+      <h2 class="form-title">Envie sua Mensagem</h2>
+      <p class="form-subtitle">Preencha o formulário abaixo e entraremos em contato</p>
+      
+      <form class="contact-form" onsubmit="enviarMensagem(event)">
+        <div class="form-group">
+          <label class="form-label">Nome Completo *</label>
+          <input type="text" class="form-input" id="nome" placeholder="Seu nome completo" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">WhatsApp *</label>
+          <input type="tel" class="form-input" id="whatsapp" placeholder="(00) 00000-0000" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">E-mail</label>
+          <input type="email" class="form-input" id="email" placeholder="seu@email.com">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Assunto *</label>
+          <select class="form-select" id="assunto" required>
+            <option value="">Selecione um assunto</option>
+            <option value="duvida-tecnica">Dúvida Técnica</option>
+            <option value="problema-sistema">Problema no Sistema</option>
+            <option value="duvida-planos">Dúvida sobre Planos</option>
+            <option value="sugestao">Sugestão</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mensagem *</label>
+          <textarea class="form-textarea" id="mensagem" placeholder="Descreva sua dúvida ou problema..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <i class="fab fa-whatsapp"></i> Enviar via WhatsApp
+        </button>
+      </form>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <h2 class="faq-title">Perguntas Frequentes</h2>
+      <div class="faq-container">
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Como faço para acessar meus sistemas?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Após a contratação, você receberá as credenciais de acesso por WhatsApp ou e-mail. 
+            Basta acessar a página "Sistemas" no menu e clicar no sistema desejado.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Esqueci minha senha, como recupero?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Entre em contato conosco pelo WhatsApp (22) 99249-7662 informando seu nome e e-mail cadastrado. 
+            Enviaremos uma nova senha temporária em poucos minutos.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Posso usar em mais de um dispositivo?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Sim! Todos os nossos planos incluem acesso multi-device. 
+            Você pode acessar seus sistemas de qualquer computador, tablet ou smartphone Android.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Meus dados estão seguros?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Absolutamente! Utilizamos criptografia de ponta, backup automático diário e infraestrutura em nuvem 
+            com certificação de segurança. Seus dados estão protegidos 24/7.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Como funciona o suporte técnico?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Oferecemos suporte via WhatsApp e e-mail durante horário comercial. 
+            Clientes dos planos Manager têm suporte prioritário. Problemas críticos são atendidos em até 2 horas.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Posso cancelar minha assinatura?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            O plano SaaS Flex pode ser cancelado a qualquer momento sem multas. 
+            Planos anuais e semestrais não têm reembolso, mas você pode migrar para outro plano. 
+            Entre em contato para mais detalhes.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- WhatsApp Float -->
+<div class="whatsapp-float">
+  <a href="https://wa.me/5522992497662" target="_blank" class="btn-whatsapp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>Legacy Sistemas</h3>
+      <p>Gestão de Autonomia</p>
+      <p style="margin-top: 15px;">
+        Transformando a gestão de negócios com tecnologia enterprise em nuvem.
+      </p>
+    </div>
+
+    <div class="footer-section">
+      <h3>Links Rápidos</h3>
+      <a href="index.html">Início</a>
+      <a href="planos.html">Planos</a>
+      <a href="sistemas.html">Sistemas</a>
+      <a href="suporte.html">Suporte</a>
+      <a href="https://legacysistema.github.io/legacy-user" target="_blank">Área do Cliente</a>
+    </div>
+
+    <div class="footer-section">
+      <h3>Contato</h3>
+      <div class="footer-contact">
+        <div class="contact-item">
+          <i class="fab fa-whatsapp"></i>
+          <span>(22) 99249-7662</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>legacysistemacrm@gmail.com</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Campos dos Goytacazes, RJ</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-section">
+      <h3>Sistemas</h3>
+      <a href="https://legacysistema.github.io/legacy-crm" target="_blank">Legacy CRM</a>
+      <a href="https://legacysistema.github.io/legacy-contrato" target="_blank">Legacy Contratos</a>
+      <a href="https://legacysistema.github.io/legacy-forms" target="_blank">Legacy Forms</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2026 <strong>Legacy Sistemas</strong> | Gestão de Autonomia | Todos os direitos reservados</p>
+  </div>
+</footer>
+
+<!-- Success Modal -->
+<div id="successModal" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="fecharModal()">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="modal-icon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <h3 class="modal-title">Mensagem Enviada!</h3>
+    <p class="modal-text">
+      Sua mensagem foi encaminhada para nossa equipe via WhatsApp. 
+      Responderemos em breve!
+    </p>
+    <button class="btn-modal" onclick="fecharModal()">Entendido</button>
+  </div>
+</div>
+
+<script>
+  // Mobile Menu
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+  const headerNav = document.getElementById('headerNav');
+
+  mobileMenuToggle.addEventListener('click', () => {
+    mobileMenuToggle.classList.toggle('active');
+    headerNav.classList.toggle('active');
+  });
+
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenuToggle.classList.remove('active');
+      headerNav.classList.remove('active');
+    });
+  });
+
+  // FAQ Toggle
+  function toggleFaq(element) {
+    const faqItem = element.parentElement;
+    const allFaqs = document.querySelectorAll('.faq-item');
+    
+    allFaqs.forEach(item => {
+      if (item !== faqItem) {
+        item.classList.remove('active');
+      }
+    });
+    
+    faqItem.classList.toggle('active');
+  }
+
+  // Contact Form
+  function enviarMensagem(event) {
+    event.preventDefault();
+    
+    const nome = document.getElementById('nome').value.trim();
+    const whatsapp = document.getElementById('whatsapp').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const assunto = document.getElementById('assunto').value;
+    const mensagem = document.getElementById('mensagem').value.trim();
+
+    if (!nome || !whatsapp || !assunto || !mensagem) {
+      alert('Por favor, preencha todos os campos obrigatórios (*)');
+      return;
+    }
+
+    const telefone = '5522992497662';
+    const texto = encodeURIComponent(
+      `📩 *Mensagem de Suporte*\n\n` +
+      `👤 *Nome:* ${nome}\n` +
+      `📱 *WhatsApp:* ${whatsapp}\n` +
+      `📧 *E-mail:* ${email || 'Não informado'}\n` +
+      `📋 *Assunto:* ${assunto}\n\n` +
+      `💬 *Mensagem:*\n${mensagem}`
+    );
+
+    window.open(`https://wa.me/${telefone}?text=${texto}`, '_blank');
+    
+    // Mostrar modal de sucesso
+    document.getElementById('successModal').style.display = 'flex';
+    
+    // Limpar formulário
+    document.getElementById('nome').value = '';
+    document.getElementById('whatsapp').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('assunto').value = '';
+    document.getElementById('mensagem').value = '';
+  }
+
+  function fecharModal() {
+    document.getElementById('successModal').style.display = 'none';
+  }
+
+  // Close modal on outside click
+  window.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal')) {
+      e.target.style.display = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>

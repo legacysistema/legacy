@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Planos e Assinaturas — Legacy Platform</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <style>
+    :root {
+      --bg-dark: #020617;
+      --text-white: #ffffff;
+      --text-gray: rgba(255, 255, 255, 0.7);
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.15);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --neon-cyan: #00ffff;
+      --neon-pink: #ff007a;
+      --neon-purple: #a855f7;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', 'Inter', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-white);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Background Effects */
+    .background-blobs {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.5;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .blob-1 {
+      width: 600px; height: 600px;
+      background: var(--neon-pink);
+      top: 10%; left: 10%;
+      animation-duration: 10s;
+    }
+
+    .blob-2 {
+      width: 500px; height: 500px;
+      background: var(--primary);
+      bottom: 10%; right: 10%;
+      animation-duration: 12s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(40px, -40px); }
+    }
+
+    /* Header - Same as index */
+    header {
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      background: rgba(2, 6, 23, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      cursor: pointer;
+    }
+
+    .cube-header-wrapper {
+      width: 50px;
+      height: 50px;
+      perspective: 800px;
+    }
+
+    .cube-header {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCube 12s infinite linear;
+    }
+
+    @keyframes rotateCube {
+      from { transform: rotateX(0deg) rotateY(0deg); }
+      to { transform: rotateX(360deg) rotateY(360deg); }
+    }
+
+    .cube-face {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: rgba(59, 130, 246, 0.3);
+      border: 1px solid rgba(59, 130, 246, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: var(--neon-cyan);
+    }
+
+    .face-front  { transform: translateZ(25px); }
+    .face-back   { transform: rotateY(180deg) translateZ(25px); }
+    .face-right  { transform: rotateY(90deg) translateZ(25px); }
+    .face-left   { transform: rotateY(-90deg) translateZ(25px); }
+    .face-top    { transform: rotateX(90deg) translateZ(25px); }
+    .face-bottom { transform: rotateX(-90deg) translateZ(25px); }
+
+    .brand-text strong {
+      font-family: 'Roboto Condensed', sans-serif;
+      font-size: 24px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .brand-text span {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--primary);
+      display: block;
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 35px;
+    }
+
+    .nav-link {
+      color: var(--text-gray);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      position: relative;
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--neon-cyan));
+      transform: translateX(-50%);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #fff;
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .nav-link:hover::before,
+    .nav-link.active::before {
+      width: 80%;
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    .mobile-menu-toggle span {
+      width: 30px;
+      height: 3px;
+      background: var(--text-white);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    /* Main Content */
+    main {
+      padding-top: 140px;
+      min-height: 100vh;
+      position: relative;
+      padding-bottom: 100px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 30px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Hero Plans */
+    .plans-hero {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .plans-hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff, var(--primary), var(--neon-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+    }
+
+    .plans-hero p {
+      font-size: 1.2rem;
+      color: var(--text-gray);
+      max-width: 900px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Pricing Grid */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 80px;
+    }
+
+    .price-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 25px;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: var(--glass-shadow);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .price-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--neon-cyan));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .price-card:hover {
+      transform: translateY(-15px);
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 25px 70px rgba(59, 130, 246, 0.4);
+    }
+
+    .price-card:hover::before {
+      opacity: 1;
+    }
+
+    .price-card.featured {
+      border: 2px solid var(--primary);
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1));
+    }
+
+    .price-card.featured::before {
+      opacity: 1;
+      height: 5px;
+      background: linear-gradient(90deg, var(--neon-pink), var(--primary), var(--neon-cyan));
+    }
+
+    .badge-best {
+      position: absolute;
+      top: 20px;
+      right: -35px;
+      background: linear-gradient(135deg, var(--warning), #d97706);
+      color: #fff;
+      padding: 8px 45px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transform: rotate(45deg);
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+    }
+
+    .plan-icon {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--neon-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .plan-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .plan-desc {
+      color: var(--text-gray);
+      font-size: 0.95rem;
+      margin-bottom: 25px;
+      min-height: 40px;
+    }
+
+    .price-box {
+      margin-bottom: 10px;
+    }
+
+    .price-value {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--success);
+      display: block;
+    }
+
+    .price-suffix {
+      font-size: 1rem;
+      color: var(--text-gray);
+      display: block;
+      margin-top: -5px;
+    }
+
+    .billing-note {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.5);
+      display: block;
+      margin-bottom: 25px;
+    }
+
+    .feature-list {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 30px;
+      flex-grow: 1;
+    }
+
+    .feature-list li {
+      padding: 12px 0;
+      color: var(--text-gray);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .feature-list li:last-child {
+      border-bottom: none;
+    }
+
+    .feature-list i {
+      color: var(--success);
+      font-size: 1.1rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .feature-list li.disabled i {
+      color: var(--text-gray);
+    }
+
+    .btn-select-plan {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: auto;
+    }
+
+    .btn-select-plan:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(59, 130, 246, 0.5);
+    }
+
+    /* Comparison Table */
+    .comparison-section {
+      margin-bottom: 80px;
+    }
+
+    .comparison-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 50px;
+      background: linear-gradient(135deg, #fff, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .comparison-table {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 40px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 18px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    th {
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    td {
+      color: var(--text-gray);
+    }
+
+    .check-icon {
+      color: var(--success);
+      font-size: 1.3rem;
+    }
+
+    .cross-icon {
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 1.3rem;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      margin-bottom: 80px;
+    }
+
+    .faq-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 50px;
+      background: linear-gradient(135deg, #fff, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .faq-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 15px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .faq-question {
+      padding: 25px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      color: #fff;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+
+    .faq-question:hover {
+      color: var(--primary);
+    }
+
+    .faq-question i {
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      padding: 0 25px;
+      color: var(--text-gray);
+      line-height: 1.7;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+      padding: 0 25px 25px;
+    }
+
+    /* Footer - Same as index */
+    footer {
+      background: #2d3748;
+      color: var(--text-gray);
+      padding: 50px 30px 30px;
+      margin-top: 100px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-section h3 {
+      color: #fff;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+
+    .footer-section p,
+    .footer-section a {
+      color: var(--text-gray);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: block;
+      transition: color 0.3s ease;
+    }
+
+    .footer-section a:hover {
+      color: var(--primary);
+    }
+
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .contact-item i {
+      color: var(--primary);
+      font-size: 1.2rem;
+      width: 25px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 30px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom strong {
+      color: var(--primary);
+    }
+
+    /* WhatsApp Float */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 999;
+    }
+
+    .btn-whatsapp {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 35px;
+      box-shadow: 0 10px 40px rgba(37, 211, 102, 0.4);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .btn-whatsapp:hover {
+      transform: scale(1.1);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 25px;
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-close:hover {
+      background: var(--danger);
+      transform: rotate(90deg);
+    }
+
+    .modal-icon {
+      font-size: 4rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .modal-text {
+      color: var(--text-gray);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .btn-modal {
+      padding: 14px 30px;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .btn-modal-primary {
+      background: linear-gradient(135deg, var(--success), #059669);
+      color: #fff;
+    }
+
+    .btn-modal-secondary {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .header-nav {
+        position: fixed;
+        top: 90px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 90px);
+        background: rgba(2, 6, 23, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 30px;
+        gap: 20px;
+        transition: left 0.4s ease;
+      }
+
+      .header-nav.active {
+        left: 0;
+      }
+
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
+      header {
+        padding: 0 20px;
+      }
+
+      .plans-hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .comparison-table {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background -->
+<div class="background-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="brand" onclick="window.location.href='index.html'">
+    <div class="cube-header-wrapper">
+      <div class="cube-header">
+        <div class="cube-face face-front"><i class="fas fa-chart-line"></i></div>
+        <div class="cube-face face-back"><i class="fas fa-users"></i></div>
+        <div class="cube-face face-right"><i class="fas fa-project-diagram"></i></div>
+        <div class="cube-face face-left"><i class="fas fa-wallet"></i></div>
+        <div class="cube-face face-top"><i class="fas fa-cube"></i></div>
+        <div class="cube-face face-bottom"><i class="fas fa-database"></i></div>
+      </div>
+    </div>
+    <div class="brand-text">
+      <strong>Legacy Platform</strong>
+      <span>ENTERPRISE <i class="fas fa-cloud"></i> CLOUD</span>
+    </div>
+  </div>
+
+  <nav class="header-nav" id="headerNav">
+    <a href="index.html" class="nav-link">
+      <i class="fas fa-home"></i> Início
+    </a>
+    <a href="planos.html" class="nav-link active">
+      <i class="fas fa-layer-group"></i> Planos
+    </a>
+    <a href="sistemas.html" class="nav-link">
+      <i class="fas fa-th-large"></i> Sistemas
+    </a>
+    <a href="suporte.html" class="nav-link">
+      <i class="fas fa-headset"></i> Suporte
+    </a>
+    <a href="https://legacysistema.github.io/legacy-user" class="nav-link" target="_blank">
+      <i class="fas fa-user-tie"></i> Área do Cliente
+    </a>
+  </nav>
+  
+  <div class="mobile-menu-toggle" id="mobileMenuToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</header>
+
+<!-- Main -->
+<main>
+  <div class="container">
+    
+    <!-- Hero -->
+    <section class="plans-hero">
+      <h1>Escolha o Plano Ideal para Seu Negócio</h1>
+      <p>
+        Escolha o plano que mais se adapta a sua realidade profissional, comece a transformar sua gestão hoje mesmo. 
+      </p>
+    </section>
+
+    <!-- Pricing Grid -->
+    <div class="pricing-grid">
+      
+      <div class="price-card">
+        <div class="plan-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <h3 class="plan-title">Nano</h3>
+        <p class="plan-desc">Ideal para quem busca uma gestão específica</p>
+        <div class="price-box">
+          <span class="price-value">R$ 39</span>
+          <span class="price-suffix">/mês</span>
+        </div>
+        <span class="billing-note">Cobrança recorrente mensal</span>
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i> Acesso Multi-device (Android e PC).</li>
+          <li><i class="fas fa-rocket"></i> Escolha 1 módulo Legacy.</li>
+          <li><i class="fas fa-headset"></i> Suporte com respota em até 48h.</li>
+          <li><i class="fas fa-sync"></i> Atualizações do sistema.</li>
+          <li class="disabled"><i class="fas fa-ban"></i> Cancele quando quiser.</li>
+        </ul>
+        <button class="btn-select-plan" onclick="selecionarPlano('Nano', 39)">
+          Assinar Nano
+        </button>
+      </div>
+
+      <div class="price-card">
+        <div class="plan-icon">
+          <i class="fas fa-play"></i>
+        </div>
+        <h3 class="plan-title">Starter</h3>
+        <p class="plan-desc">Ideal para quem está começando a organizar</p>
+        <div class="price-box">
+          <span class="price-value">R$ 79</span>
+          <span class="price-suffix">/mês</span>
+        </div>
+        <span class="billing-note">Cobrança recorrente mensal</span>
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i> Acesso Multi-device (Android e PC)</li>
+          <li><i class="fas fa-laptop-code"></i> Escolha 2 módulos Legacy.</li>
+          <li><i class="fas fa-headset"></i> Suporte com respota em até 24h.</li>
+          <li><i class="fas fa-sync"></i> Atualizações automáticas</li>
+          <li class="disabled"><i class="fas fa-ban"></i> Cancele quando quiser.</li>
+        </ul>
+        <button class="btn-select-plan" onclick="selecionarPlano('Starter', 60)">
+          Assinar Starter
+        </button>
+      </div>
+
+      <div class="price-card featured">
+        <div class="badge-best">MAIS POPULAR</div>
+        <div class="plan-icon">
+          <i class="fas fa-crown"></i>
+        <h3 class="plan-title">Controller</h3>
+        <p class="plan-desc">Ideal para quem busca controle de ponta a ponta</p>
+        <div class="price-box">
+          <span class="price-value">R$ 99</span>
+          <span class="price-suffix">/mês</span>
+        </div>
+        <span class="billing-note">Cobrança recorrente mensal</span>
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i> Acesso Multi-device (Android e PC)</li>
+          <li><i class="fas fa-laptop-code"></i> Acesso Full Legacy.</li>
+          <li><i class="fas fa-headset"></i> Suporte contínuo Seg. a Sáb.*</li>
+          <li><i class="fas fa-sync"></i> Atualizações automáticas</li>
+          <li><i class="fas fa-database"></i> Backup em nuvem</li>
+          <li class="disabled"><i class="fas fa-ban"></i> Cancele quando quiser.</li>
+        </ul>
+        <button class="btn-select-plan" onclick="selecionarPlano('Controller', 89)">
+          Assinar Controller
+        </button>
+      </div>
+
+       <div class="price-card">
+        <div class="plan-icon">
+          <i class="fas fa-crown"></i>
+        </div>
+        <h3 class="plan-title">Manager Premium</h3>
+        <p class="plan-desc">Gestão e auxílio completo focado no seu negócio</p>
+        <div class="price-box">
+          <span class="price-value">R$ 189,90</span>
+          <span class="price-suffix">/mês</span>
+        </div>
+        <span class="billing-note">Cobrança recorrente mensal</span>
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i> Acesso Multi-device (Android e PC)</li>
+          <li><i class="fas fa-user-tie"></i> Implantação com o usuário</li>
+          <li><i class="fas fa-headset"></i> Suporte contínuo Seg. a Sáb.*</li>
+          <li><i class="fas fa-sync"></i> Atualizações automáticas</li>
+          <li><i class="fas fa-database"></i> Monitoramento de Backup</li>
+          <li><i class="fas fa-shield-alt"></i> Suporte prioritário</li>
+        </ul>
+        <button class="btn-select-plan" onclick="selecionarPlano('Manager Premium', 189,90)">
+          Assinar Premium
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Comparison Table -->
+    <section class="comparison-section">
+      <h2 class="comparison-title">Compare os Planos</h2>
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Recursos</th>
+              <th>Nano</th>
+              <th>Starter</th>
+              <th>Controller</th>
+              <th>Manager</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Acesso Multi-device</td>
+              <td><i class="fas fa-check check-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+            </tr>
+            <tr>
+              <td>Legacy CRM</td>
+              <td><i class="fas fa-check check-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+            </tr>
+            <tr>
+              <td>Legacy Contratos</td>
+              <td><i class="fas fa-check check-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+            </tr>
+            <tr>
+              <td>Legacy Forms</td>
+              <td><i class="fas fa-check check-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+            </tr>
+            <tr>
+              <td>Prioridade Suporte</td>
+              <td>48h</td>
+              <td>24h</td>
+              <td>Seg a Sab*</td>
+              <td>Seg a Sab*</td>
+            </tr>
+            <tr>
+              <td>Atualizações Legacy</td>
+              <td><i class="fas fa-check check-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+            </tr>
+            <tr>
+              <td>Implantação com usuário</td>
+              <td><i class="fas fa-times cross-icon"></i></td>
+              <td><i class="fas fa-times cross-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+            </tr>
+            <tr>
+              <td>Suporte Prioritário</td>
+              <td><i class="fas fa-times cross-icon"></i></td>
+              <td><i class="fas fa-times cross-icon"></i></td>
+              <td><i class="fas fa-times cross-icon"></i></td>
+              <td><i class="fas fa-check check-icon"></i></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <h2 class="faq-title">Perguntas Frequentes</h2>
+      <div class="faq-container">
+        
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Como funciona o período de teste?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Entre em contato conosco pelo WhatsApp e solicite uma demonstração gratuita. 
+            Nossa equipe irá apresentar todos os recursos da plataforma para você conhecer antes de assinar.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Posso mudar de plano depois?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Sim! Você pode fazer upgrade do seu plano a qualquer momento. 
+            Entre em contato conosco para ajustar sua assinatura de acordo com suas necessidades.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Os dados ficam seguros na nuvem?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Absolutamente! Utilizamos as melhores práticas de segurança, incluindo criptografia de dados, 
+            backup automático e infraestrutura em nuvem confiável. Seus dados estão protegidos 24/7.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Preciso de conhecimento técnico para usar?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Não! A Legacy Platform foi desenvolvida pensando em autônomos e empresários. 
+            A interface é intuitiva e oferecemos implantação guiada em todos os planos.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Qual a forma de pagamento?</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            Aceitamos PIX, boleto bancário e cartão de crédito. 
+            Entre em contato pelo WhatsApp para finalizar sua assinatura com a forma de pagamento preferida.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- WhatsApp -->
+<div class="whatsapp-float">
+  <a href="https://wa.me/5522992497662" target="_blank" class="btn-whatsapp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>Legacy Sistemas</h3>
+      <p>Gestão de Autonomia</p>
+      <p style="margin-top: 15px;">
+        Transformando a gestão de negócios com tecnologia enterprise em nuvem.
+      </p>
+    </div>
+
+    <div class="footer-section">
+      <h3>Links Rápidos</h3>
+      <a href="index.html">Início</a>
+      <a href="planos.html">Planos</a>
+      <a href="sistemas.html">Sistemas</a>
+      <a href="suporte.html">Suporte</a>
+      <a href="https://legacysistema.github.io/legacy-user" target="_blank">Área do Cliente</a>
+    </div>
+
+    <div class="footer-section">
+      <h3>Contato</h3>
+      <div class="footer-contact">
+        <div class="contact-item">
+          <i class="fab fa-whatsapp"></i>
+          <span>(22) 99249-7662</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>legacysistemacrm@gmail.com</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Campos dos Goytacazes, RJ</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-section">
+      <h3>Sistemas</h3>
+      <a href="https://legacysistema.github.io/legacy-crm" target="_blank">Legacy CRM</a>
+      <a href="https://legacysistema.github.io/legacy-contrato" target="_blank">Legacy Contratos</a>
+      <a href="https://legacysistema.github.io/legacy-forms" target="_blank">Legacy Forms</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2026 <strong>Legacy Sistemas</strong> | Gestão de Autonomia | Todos os direitos reservados</p>
+  </div>
+</footer>
+
+<!-- Modal -->
+<div id="planModal" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="fecharModal()">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="modal-icon">
+      <i class="fas fa-shopping-cart"></i>
+    </div>
+    <h3 class="modal-title">Confirmar Assinatura</h3>
+    <p class="modal-text">Você selecionou o plano:</p>
+    <h2 id="modalPlanName" style="color: #fff; margin-bottom: 10px;"></h2>
+    <strong id="modalPrice" style="font-size: 1.8rem; color: var(--success); display: block; margin-bottom: 20px;"></strong>
+    <p style="font-size: 0.9rem; margin-bottom: 25px; color: var(--text-gray);">
+      Você será redirecionado para finalizar a contratação via WhatsApp.
+    </p>
+    <div class="modal-buttons">
+      <button class="btn-modal btn-modal-secondary" onclick="fecharModal()">Cancelar</button>
+      <button class="btn-modal btn-modal-primary" onclick="confirmarAssinatura()">
+        <i class="fab fa-whatsapp"></i> Confirmar
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Mobile Menu
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+  const headerNav = document.getElementById('headerNav');
+
+  mobileMenuToggle.addEventListener('click', () => {
+    mobileMenuToggle.classList.toggle('active');
+    headerNav.classList.toggle('active');
+  });
+
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenuToggle.classList.remove('active');
+      headerNav.classList.remove('active');
+    });
+  });
+
+  // FAQ Toggle
+  function toggleFaq(element) {
+    const faqItem = element.parentElement;
+    const allFaqs = document.querySelectorAll('.faq-item');
+    
+    allFaqs.forEach(item => {
+      if (item !== faqItem) {
+        item.classList.remove('active');
+      }
+    });
+    
+    faqItem.classList.toggle('active');
+  }
+
+  // Plan Selection
+  let planoSelecionado = '';
+  let valorSelecionado = 0;
+
+  function selecionarPlano(nome, valor) {
+    planoSelecionado = nome;
+    valorSelecionado = valor;
+    document.getElementById('modalPlanName').textContent = nome;
+    document.getElementById('modalPrice').textContent = `R$ ${valor},00`;
+    document.getElementById('planModal').style.display = 'flex';
+  }
+
+  function fecharModal() {
+    document.getElementById('planModal').style.display = 'none';
+  }
+
+  function confirmarAssinatura() {
+    const telefone = '5522992497662';
+    const mensagem = encodeURIComponent(
+      `🎯 *Solicitação de Assinatura*\n\n` +
+      `📦 *Plano:* ${planoSelecionado}\n` +
+      `💰 *Valor:* R$ ${valorSelecionado},00\n\n` +
+      `Gostaria de contratar este plano!`
+    );
+    window.open(`https://wa.me/${telefone}?text=${mensagem}`, '_blank');
+    fecharModal();
+  }
+
+  // Close modal on outside click
+  window.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal')) {
+      e.target.style.display = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>
