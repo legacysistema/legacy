@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Planos e Assinaturas — Legacy Platform</title>
   
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Condensed:wght@700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
   <style>
@@ -136,11 +136,11 @@
     .face-bottom { transform: rotateX(-90deg) translateZ(25px); }
 
     .brand-text strong {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 26px;
+      font-family: 'Roboto Condensed', sans-serif;
+      font-size: 24px;
       color: #fff;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
     }
 
     .brand-text span {
@@ -253,18 +253,17 @@
     /* Pricing Grid */
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
       margin-bottom: 80px;
-      align-items: stretch;
     }
 
     .price-card {
       background: var(--glass-bg);
       backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 35px 25px;
+      border-radius: 25px;
+      padding: 40px 30px;
       text-align: center;
       box-shadow: var(--glass-shadow);
       transition: all 0.4s ease;
@@ -272,7 +271,6 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      height: 100%;
     }
 
     .price-card::before {
@@ -746,13 +744,6 @@
     }
 
     /* Responsive */
-    @media (max-width: 1200px) {
-      .pricing-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-      }
-    }
-
     @media (max-width: 968px) {
       .header-nav {
         position: fixed;
@@ -1135,7 +1126,7 @@
         </div>
         <div class="contact-item">
           <i class="fas fa-envelope"></i>
-          <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5c9c0c2c4c6dcd6ccd6d1c0c8c4c6d7c8e5c2c8c4ccc98bc6cac8">[email&#160;protected]</a></span>
+          <span>legacysistemacrm@gmail.com</span>
         </div>
         <div class="contact-item">
           <i class="fas fa-map-marker-alt"></i>
@@ -1182,7 +1173,7 @@
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   // Mobile Menu
   const mobileMenuToggle = document.getElementById('mobileMenuToggle');
   const headerNav = document.getElementById('headerNav');
@@ -1237,4 +1228,17 @@
       `💰 *Valor:* R$ ${valorSelecionado},00\n\n` +
       `Gostaria de contratar este plano!`
     );
-    window.open(`https://wa.me/${telefone}?text=${mensagem}`, '_
+    window.open(`https://wa.me/${telefone}?text=${mensagem}`, '_blank');
+    fecharModal();
+  }
+
+  // Close modal on outside click
+  window.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal')) {
+      e.target.style.display = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>
