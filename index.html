@@ -565,77 +565,247 @@
       line-height: 1.7;
     }
 
-    /* Systems Grid */
-    .systems-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: var(--spacing-lg);
-    }
-
-    .system-card {
+    /* ===== PRODUCT SHOWCASE SECTIONS ===== */
+    .products-wrapper {
       position: relative;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: var(--spacing-xl);
-      text-align: center;
+    }
+
+    .product-section {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-section-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      min-height: 540px;
+    }
+
+    .product-text {
+      padding: 80px 56px 80px 0;
+    }
+
+    .product-section-inner.reverse .product-text {
+      padding: 80px 0 80px 56px;
+      order: 2;
+    }
+
+    .product-section-inner.reverse .product-visual {
+      order: 1;
+    }
+
+    .product-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 18px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 24px;
+      width: fit-content;
+      border: 1.5px solid;
+    }
+
+    .product-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .product-tagline {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    .product-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 28px;
+      max-width: 460px;
+    }
+
+    .product-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+
+    .product-features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+    }
+
+    .product-features li i {
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .product-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 34px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: none;
+      cursor: pointer;
       transition: all var(--transition-base);
-      backdrop-filter: blur(20px);
+      text-decoration: none;
     }
 
-    .system-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--accent-blue);
-      background: var(--glass-hover);
-      box-shadow: 0 12px 48px rgba(59, 130, 246, 0.25);
+    .product-cta:hover {
+      transform: translateY(-3px);
+      filter: brightness(1.12);
+      box-shadow: 0 10px 36px rgba(0,0,0,0.4);
     }
 
-    .system-icon {
-      width: 70px;
-      height: 70px;
-      margin: 0 auto var(--spacing-md);
-      background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
-      border-radius: 16px;
+    .product-visual {
+      position: relative;
+      min-height: 540px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 32px;
-      color: var(--text-primary);
-      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+      padding: 48px 24px 48px 40px;
     }
 
-    .system-title {
-      font-size: 1.35rem;
-      font-weight: 700;
-      margin-bottom: var(--spacing-xs);
-      color: var(--text-primary);
+    .product-section-inner.reverse .product-visual {
+      padding: 48px 40px 48px 24px;
     }
 
-    .system-subtitle {
-      font-size: 0.9rem;
-      color: var(--text-tertiary);
-      margin-bottom: var(--spacing-lg);
-    }
-
-    .system-btn {
+    .product-screenshot-wrap {
+      position: relative;
       width: 100%;
-      padding: 12px 24px;
-      background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
-      color: var(--text-primary);
-      border: none;
-      border-radius: 8px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 
+        0 25px 60px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 0 80px rgba(59, 130, 246, 0.12);
+      transition: transform var(--transition-slow), box-shadow var(--transition-slow);
+    }
+
+    .product-screenshot-wrap:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 
+        0 35px 80px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(255, 255, 255, 0.12),
+        0 0 100px rgba(59, 130, 246, 0.18);
+    }
+
+    .product-screenshot {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 16px;
+    }
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .mockup-window {
+      background: #161b22;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 32px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.07);
+    }
+
+    .mockup-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      background: #0d1117;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .mockup-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .mockup-body {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .mockup-float {
+      position: absolute;
+      bottom: -10px;
+      right: -20px;
+      width: 50%;
+      background: #161b22;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 64px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.1);
+    }
+
+    /* connect+ dual preview layout */
+    .dual-preview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .dual-preview-item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .dual-preview-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    /* section divider */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+      margin: 0;
+    }
+
+    /* system btn compat */
+    .system-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 10px;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       transition: all var(--transition-base);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+      border: none;
+      color: var(--text-primary);
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
     }
-
     .system-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 24px rgba(59, 130, 246, 0.5);
@@ -941,6 +1111,33 @@
         grid-template-columns: 1fr;
       }
 
+      .product-section-inner,
+      .product-section-inner.reverse {
+        grid-template-columns: 1fr;
+      }
+
+      .product-text,
+      .product-section-inner.reverse .product-text {
+        padding: 48px 0 32px;
+        order: 1;
+      }
+
+      .product-visual,
+      .product-section-inner.reverse .product-visual {
+        padding: 0 0 48px;
+        order: 2;
+        min-height: auto;
+      }
+
+      .mockup-float {
+        display: none;
+      }
+
+      .dual-preview {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
       .whatsapp-float {
         bottom: 20px;
         right: 20px;
@@ -1124,54 +1321,168 @@
       </div>
     </section>
 
-    <!-- Systems -->
-    <section class="section">
-      <div class="section-header">
-        <span class="section-label">Nossos Sistemas</span>
-        <h2 class="section-title">Ecossistema Completo de Gestão</h2>
-        <p class="section-subtitle">
-          Ferramentas poderosas e integradas para levar seu negócio ao próximo nível
-        </p>
-      </div>
+    <!-- Systems — Product Showcase Sections -->
+    <div class="products-wrapper">
 
-      <div class="systems-grid">
-        <div class="system-card">
-          <div class="system-icon">
-            <i class="fas fa-users"></i>
-          </div>
-          <h3 class="system-title">Legacy CRM</h3>
-          <p class="system-subtitle">Gestão Completa de Clientes</p>
-          <button class="system-btn" onclick="openSystem('https://legacysistema.github.io/legacy-crm')">
-            <i class="fas fa-arrow-right"></i>
-            Acessar Sistema
-          </button>
+      <!-- Section header -->
+      <section class="section">
+        <div class="section-header">
+          <span class="section-label">Nossos Sistemas</span>
+          <h2 class="section-title">Ecossistema Completo de Gestão</h2>
+          <p class="section-subtitle">
+            Ferramentas poderosas e integradas para levar seu negócio ao próximo nível
+          </p>
         </div>
+      </section>
 
-        <div class="system-card">
-          <div class="system-icon">
-            <i class="fas fa-file-signature"></i>
-          </div>
-          <h3 class="system-title">Legacy Contratos</h3>
-          <p class="system-subtitle">Gestão Inteligente de Contratos</p>
-          <button class="system-btn" onclick="openSystem('https://legacysistema.github.io/legacy-contrato')">
-            <i class="fas fa-arrow-right"></i>
-            Acessar Sistema
-          </button>
-        </div>
+      <!-- ===== LEGACY CRM ===== -->
+      <section class="product-section" style="background: linear-gradient(135deg, #020817 0%, #0a1a3a 100%); border-top: 1px solid rgba(59,130,246,0.15);">
+        <div style="position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,0.18) 0%,transparent 70%);top:-100px;right:0;pointer-events:none;border-radius:50%;"></div>
+        <div class="content-wrapper">
+          <div class="product-section-inner">
+            <div class="product-text">
+              <span class="product-tag" style="color:#3b82f6;border-color:rgba(59,130,246,0.4);background:rgba(59,130,246,0.1);">
+                <i class="fas fa-users"></i> CRM
+              </span>
+              <h2 class="product-name">Legacy CRM</h2>
+              <p class="product-tagline" style="color:#3b82f6;">ENTERPRISE EDITION</p>
+              <p class="product-desc">
+                Gestão completa de clientes 360°, agenda inteligente, pipeline de vendas e Assistente Estratégico com IA integrado. Visão total do negócio em tempo real.
+              </p>
+              <ul class="product-features">
+                <li><i class="fas fa-check-circle" style="color:#3b82f6;"></i> Contatos 360° com histórico completo</li>
+                <li><i class="fas fa-check-circle" style="color:#3b82f6;"></i> Agenda e gestão de eventos</li>
+                <li><i class="fas fa-check-circle" style="color:#3b82f6;"></i> Assistente de IA estratégico</li>
+                <li><i class="fas fa-check-circle" style="color:#3b82f6;"></i> Dashboard executivo</li>
+              </ul>
+              <button class="product-cta" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);color:white;box-shadow:0 8px 30px rgba(59,130,246,0.4);" onclick="openSystem('https://legacysistema.github.io/legacy-crm')">
+                <i class="fas fa-arrow-right"></i> Acessar Legacy CRM
+              </button>
+            </div>
 
-        <div class="system-card">
-          <div class="system-icon">
-            <i class="fas fa-clipboard-check"></i>
+            <div class="product-visual">
+              <div class="product-screenshot-wrap">
+                <img src="sys-crm.png" alt="Legacy CRM - Dashboard Principal" class="product-screenshot">
+              </div>
+            </div>
           </div>
-          <h3 class="system-title">Legacy Forms</h3>
-          <p class="system-subtitle">Formulários Personalizados</p>
-          <button class="system-btn" onclick="openSystem('https://legacysistema.github.io/legacy-forms')">
-            <i class="fas fa-arrow-right"></i>
-            Acessar Sistema
-          </button>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- ===== LEGACY CONTRACT ===== -->
+      <section class="product-section" style="background: linear-gradient(135deg, #020817 0%, #051a10 100%); border-top: 1px solid rgba(16,185,129,0.12);">
+        <div style="position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(16,185,129,0.15) 0%,transparent 70%);bottom:-100px;left:0;pointer-events:none;border-radius:50%;"></div>
+        <div class="content-wrapper">
+          <div class="product-section-inner reverse">
+            <div class="product-text">
+              <span class="product-tag" style="color:#10b981;border-color:rgba(16,185,129,0.4);background:rgba(16,185,129,0.1);">
+                <i class="fas fa-file-signature"></i> Contratos
+              </span>
+              <h2 class="product-name">Legacy Contract</h2>
+              <p class="product-tagline" style="color:#10b981;">GESTÃO INTELIGENTE DE CONTRATOS</p>
+              <p class="product-desc">
+                Crie, envie e colete assinaturas digitais de contratos profissionais. Modelos personalizáveis, histórico completo e download em PDF com validade jurídica.
+              </p>
+              <ul class="product-features">
+                <li><i class="fas fa-check-circle" style="color:#10b981;"></i> Criação de contratos com modelos</li>
+                <li><i class="fas fa-check-circle" style="color:#10b981;"></i> Assinatura digital validada</li>
+                <li><i class="fas fa-check-circle" style="color:#10b981;"></i> Download em PDF com timestamp</li>
+                <li><i class="fas fa-check-circle" style="color:#10b981;"></i> Gestão de clientes integrada</li>
+              </ul>
+              <button class="product-cta" style="background:linear-gradient(135deg,#10b981,#06b6d4);color:white;box-shadow:0 8px 30px rgba(16,185,129,0.4);" onclick="openSystem('https://legacysistema.github.io/legacy-contrato')">
+                <i class="fas fa-arrow-right"></i> Acessar Legacy Contract
+              </button>
+            </div>
+
+            <div class="product-visual" style="padding:48px 24px 48px 40px;">
+              <div class="product-screenshot-wrap">
+                <img src="sys-contract.png" alt="Legacy Contract - Dashboard" class="product-screenshot">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- ===== FORMFLOW ===== -->
+      <section class="product-section" style="background: linear-gradient(135deg, #0c0618 0%, #1a0a2e 100%); border-top: 1px solid rgba(139,92,246,0.15);">
+        <div style="position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(139,92,246,0.18) 0%,transparent 70%);top:-80px;right:0;pointer-events:none;border-radius:50%;"></div>
+        <div class="content-wrapper">
+          <div class="product-section-inner">
+            <div class="product-text">
+              <span class="product-tag" style="color:#a78bfa;border-color:rgba(139,92,246,0.4);background:rgba(139,92,246,0.1);">
+                <i class="fas fa-clipboard-list"></i> Formulários
+              </span>
+              <h2 class="product-name">FormFlow</h2>
+              <p class="product-tagline" style="color:#a78bfa;">LEGACY FORMS — CRIAÇÃO INTELIGENTE</p>
+              <p class="product-desc">
+                Crie formulários personalizados com arrastar e soltar, colete respostas automaticamente e gerencie tudo em um painel centralizado. Simples, rápido e poderoso.
+              </p>
+              <ul class="product-features">
+                <li><i class="fas fa-check-circle" style="color:#a78bfa;"></i> Editor drag-and-drop intuitivo</li>
+                <li><i class="fas fa-check-circle" style="color:#a78bfa;"></i> Múltiplos tipos de campo</li>
+                <li><i class="fas fa-check-circle" style="color:#a78bfa;"></i> Coleta de respostas em tempo real</li>
+                <li><i class="fas fa-check-circle" style="color:#a78bfa;"></i> Gestão de clientes integrada</li>
+              </ul>
+              <button class="product-cta" style="background:linear-gradient(135deg,#8b5cf6,#ec4899);color:white;box-shadow:0 8px 30px rgba(139,92,246,0.4);" onclick="openSystem('https://legacysistema.github.io/legacy-forms')">
+                <i class="fas fa-arrow-right"></i> Acessar FormFlow
+              </button>
+            </div>
+
+            <div class="product-visual">
+              <div class="product-screenshot-wrap">
+                <img src="sys-forms.png" alt="FormFlow - Dashboard" class="product-screenshot">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- ===== LEGACY CONNECT+ ===== -->
+      <section class="product-section" style="background: linear-gradient(135deg, #0c0618 0%, #2a0a3e 50%, #0c0618 100%); border-top: 1px solid rgba(168,85,247,0.15);">
+        <div style="position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(168,85,247,0.15) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;border-radius:50%;"></div>
+        <div class="content-wrapper">
+          <div class="product-section-inner reverse">
+            <div class="product-text">
+              <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
+                <div style="width:64px;height:64px;background:linear-gradient(135deg,#8b5cf6,#ec4899);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 8px 30px rgba(139,92,246,0.5);position:relative;">
+                  📡
+                  <div style="position:absolute;top:-4px;right:-4px;width:16px;height:16px;background:#ec4899;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;color:white;font-weight:700;">+</div>
+                </div>
+                <div>
+                  <h2 class="product-name" style="margin-bottom:4px;">Legacy Connect+</h2>
+                  <p class="product-tagline" style="color:#c084fc;margin-bottom:0;">CENTRAL DE INFORMAÇÕES</p>
+                </div>
+              </div>
+              <p class="product-desc">
+                Plataforma centralizada onde o administrador publica projetos, prazos, alertas, avisos e links estratégicos. Seus usuários acessam tudo em um único painel sempre atualizado.
+              </p>
+              <ul class="product-features">
+                <li><i class="fas fa-check-circle" style="color:#c084fc;"></i> Gestão de projetos com prazos e status</li>
+                <li><i class="fas fa-check-circle" style="color:#c084fc;"></i> Alertas e avisos em tempo real</li>
+                <li><i class="fas fa-check-circle" style="color:#c084fc;"></i> Links e recursos centralizados</li>
+                <li><i class="fas fa-check-circle" style="color:#c084fc;"></i> Painel ADM + Painel Usuário separados</li>
+              </ul>
+              <button class="product-cta" style="background:linear-gradient(135deg,#8b5cf6,#ec4899);color:white;box-shadow:0 8px 30px rgba(139,92,246,0.4);" onclick="openSystem('https://legacysistema.github.io/legacy-admin')">
+                <i class="fas fa-arrow-right"></i> Acessar Connect+
+              </button>
+            </div>
+
+            <div class="product-visual" style="padding:48px 24px 48px 40px;">
+              <div class="product-screenshot-wrap">
+                <img src="sys-connect.png" alt="Legacy Connect+ - Portal Admin e Cliente" class="product-screenshot">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
 
     <!-- Demo Request -->
     <section class="section" id="demo">
@@ -1250,7 +1561,7 @@
         </div>
         <div class="contact-item">
           <i class="fas fa-envelope"></i>
-          <span>legacysistemacrm@gmail.com</span>
+          <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="711d141610120802180205141c1012031c31161c10181d5f121e1c">[email&#160;protected]</a></span>
         </div>
         <div class="contact-item">
           <i class="fas fa-map-marker-alt"></i>
@@ -1294,7 +1605,7 @@
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Mobile Menu Toggle
   const mobileToggle = document.getElementById('mobileToggle');
   const mainNav = document.getElementById('mainNav');
@@ -1377,14 +1688,4 @@
   // Smooth Scroll
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-</script>
-
-</body>
-</html>
+ 
