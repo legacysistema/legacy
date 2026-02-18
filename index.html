@@ -1194,12 +1194,20 @@
         opacity: 0;
         transition: all var(--transition-base);
         pointer-events: none;
+        z-index: 999;
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
       }
 
       .main-nav.active {
         transform: translateY(0);
         opacity: 1;
         pointer-events: all;
+      }
+
+      .site-header.scrolled ~ * .main-nav,
+      .site-header.scrolled + * .main-nav {
+        top: 70px;
       }
 
       .mobile-toggle {
@@ -1602,7 +1610,7 @@
         <div class="sys-showcase-content">
           <div class="sys-badge"><i class="fas fa-users"></i> CRM</div>
           <h3 class="sys-name">Legacy CRM</h3>
-          <p class="sys-tagline">IA cloud  Edition</p>
+          <p class="sys-tagline">Enterprise Edition</p>
           <p class="sys-desc">
             Gestão completa de clientes 360°, agenda inteligente, pipeline de vendas e Assistente Estratégico com IA integrado. Visão total do negócio em tempo real.
           </p>
@@ -1697,7 +1705,7 @@
         <div style="text-align:center; margin-bottom: var(--spacing-lg);">
           <span class="connect-featured-label">
             <i class="fas fa-star"></i>
-            Estreite seus relacionamentos comerciais
+            Sistema Diferenciado — Central de Informações
             <i class="fas fa-star"></i>
           </span>
         </div>
@@ -1738,7 +1746,7 @@
               </div>
             </div>
 
-            <button class="connect-plus-btn" onclick="openSystem('https://legacysistema.github.io/legacy-user')">
+            <button class="connect-plus-btn" onclick="openSystem('https://legacysistema.github.io/legacy-connect')">
               <i class="fas fa-rocket"></i>
               Acessar Connect+
             </button>
@@ -1907,8 +1915,10 @@
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
       siteHeader.classList.add('scrolled');
+      mainNav.style.top = '70px';
     } else {
       siteHeader.classList.remove('scrolled');
+      mainNav.style.top = '80px';
     }
   });
 
