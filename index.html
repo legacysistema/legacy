@@ -268,19 +268,6 @@
       display: flex;
       gap: var(--spacing-xs);
       align-items: center;
-      /* Desktop: posicionada sobre o header */
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 80px;
-      justify-content: center;
-      z-index: 999;
-      pointer-events: none; /* deixa cliques passarem para o header */
-    }
-
-    .main-nav .nav-link {
-      pointer-events: auto;
     }
 
     .nav-link {
@@ -1194,23 +1181,25 @@
     /* ===== RESPONSIVE ===== */
     @media (max-width: 968px) {
       .main-nav {
-        display: none;
         position: fixed;
         top: 80px;
         left: 0;
         right: 0;
         flex-direction: column;
         background: rgba(2, 8, 23, 0.98);
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
         border-bottom: 1px solid var(--glass-border);
         padding: var(--spacing-lg);
         gap: var(--spacing-sm);
-        z-index: 1001;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: all var(--transition-base);
+        pointer-events: none;
       }
 
       .main-nav.active {
-        display: flex;
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: all;
       }
 
       .mobile-toggle {
@@ -1540,6 +1529,24 @@
       </div>
     </a>
 
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html" class="nav-link active">
+        <i class="fas fa-home"></i>Início
+      </a>
+      <a href="planos.html" class="nav-link">
+        <i class="fas fa-tags"></i>Planos
+      </a>
+      <a href="sistemas.html" class="nav-link">
+        <i class="fas fa-th"></i>Sistemas
+      </a>
+      <a href="suporte.html" class="nav-link">
+        <i class="fas fa-headset"></i>Suporte
+      </a>
+      <a href="https://legacysistema.github.io/legacy-user" target="_blank" class="nav-link">
+        <i class="fas fa-user-circle"></i>Área do Cliente
+      </a>
+    </nav>
+
     <div class="mobile-toggle" id="mobileToggle">
       <span></span>
       <span></span>
@@ -1547,25 +1554,6 @@
     </div>
   </div>
 </header>
-
-<!-- Mobile Nav (outside header to avoid stacking context issues) -->
-<nav class="main-nav" id="mainNav">
-  <a href="index.html" class="nav-link active">
-    <i class="fas fa-home"></i>Início
-  </a>
-  <a href="planos.html" class="nav-link">
-    <i class="fas fa-tags"></i>Planos
-  </a>
-  <a href="sistemas.html" class="nav-link">
-    <i class="fas fa-th"></i>Sistemas
-  </a>
-  <a href="suporte.html" class="nav-link">
-    <i class="fas fa-headset"></i>Suporte
-  </a>
-  <a href="https://legacysistema.github.io/legacy-user" target="_blank" class="nav-link">
-    <i class="fas fa-user-circle"></i>Área do Cliente
-  </a>
-</nav>
 
 <!-- Main Content -->
 <main class="main-content">
@@ -1919,10 +1907,8 @@
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
       siteHeader.classList.add('scrolled');
-      if (window.innerWidth <= 968) mainNav.style.top = '70px';
     } else {
       siteHeader.classList.remove('scrolled');
-      if (window.innerWidth <= 968) mainNav.style.top = '80px';
     }
   });
 
