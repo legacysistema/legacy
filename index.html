@@ -268,19 +268,14 @@
       display: flex;
       gap: var(--spacing-xs);
       align-items: center;
-      /* Desktop: posicionada sobre o header */
+      /* Desktop: overlay sobre o header, centralizado */
       position: fixed;
       top: 0;
-      left: 0;
-      right: 0;
+      left: 50%;
+      transform: translateX(-50%);
       height: 80px;
-      justify-content: center;
-      z-index: 999;
-      pointer-events: none; /* deixa cliques passarem para o header */
-    }
-
-    .main-nav .nav-link {
-      pointer-events: auto;
+      z-index: 1001;
+      white-space: nowrap;
     }
 
     .nav-link {
@@ -1194,11 +1189,12 @@
     /* ===== RESPONSIVE ===== */
     @media (max-width: 968px) {
       .main-nav {
-        display: none;
         position: fixed;
         top: 80px;
         left: 0;
         right: 0;
+        height: auto;
+        transform: translateX(0) translateY(-110%);
         flex-direction: column;
         background: rgba(2, 8, 23, 0.98);
         backdrop-filter: blur(24px);
@@ -1206,11 +1202,16 @@
         border-bottom: 1px solid var(--glass-border);
         padding: var(--spacing-lg);
         gap: var(--spacing-sm);
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        pointer-events: none;
         z-index: 1001;
       }
 
       .main-nav.active {
-        display: flex;
+        transform: translateX(0) translateY(0);
+        opacity: 1;
+        pointer-events: all;
       }
 
       .mobile-toggle {
